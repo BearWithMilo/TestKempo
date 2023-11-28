@@ -1,34 +1,39 @@
-/*
-  This is your site JavaScript code - you can add interactivity!
-*/
+"use strict";
+// Select all slides
+const slides = document.querySelectorAll(".gallery-item");
 
-// Print a message in the browser's dev tools console each time the page loads
-// Use your menus or right-click / control-click and choose "Inspect" > "Console"
-console.log("Hello 🌎");
+slides.forEach((slide, indx) => {
+  slide.style.transform = `translateX(${indx * 10}px)`;
+});
 
-/* 
-Make the "Click me!" button move when the visitor clicks it:
-- First add the button to the page by following the steps in the TODO 🚧
-*/
-const btn = document.querySelector("button"); // Get the button from the page
-if (btn) { // Detect clicks on the button
-  btn.onclick = function () {
-    // The 'dipped' class in style.css changes the appearance on click
-    btn.classList.toggle("dipped");
-  };
-}
+const nextSlide = document.querySelector(".btn-next");
+
+let curSlide = 0;
+let maxSlide = slides.length - 1;
 
 
-// ----- GLITCH STARTER PROJECT HELPER CODE -----
+nextSlide.addEventListener("click", function () {
+  if (curSlide === maxSlide) {
+    curSlide = 0;
+  } else {
+    curSlide++;
+  }
+  
+    slides.forEach((slide, indx) => {
+    slide.style.transform = `translateX(${360 * (indx - curSlide)}px)`;
+  });
+});
 
-// Open file when the link in the preview is clicked
-let goto = (file, line) => {
-  window.parent.postMessage(
-    { type: "glitch/go-to-line", payload: { filePath: file, line: line } }, "*"
-  );
-};
-// Get the file opening button from its class name
-const filer = document.querySelectorAll(".fileopener");
-filer.forEach((f) => {
-  f.onclick = () => { goto(f.dataset.file, f.dataset.line); };
+const prevSlide = document.querySelector(".btn-prev");
+
+prevSlide.addEventListener("click", function () {
+  if (curSlide === 0) {
+    curSlide = maxSlide;
+  } else {
+    curSlide--;
+  }
+
+  slides.forEach((slide, indx) => {
+    slide.style.transform = `translateX(${360 * (indx - curSlide)}px)`;
+  });
 });

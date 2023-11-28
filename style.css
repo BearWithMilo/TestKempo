@@ -21,10 +21,41 @@ body {
 }
 
 .gallery {
+  height: 250px;
   display: flex;
   justify-content: space-evenly;
   overflow: hidden;
+  width: 100%;
+  max-width: 1050px;
 }
+
+.gallery-item {
+  transition: all 0.5s;
+}
+
+.btn {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  border: none;
+  border-radius: 50%;
+  z-index: 10px;
+  cursor: pointer;
+  background-color: #ffffff;
+  font-size: 18px;
+}
+
+.btn-prev {
+  top: 45%;
+  left: 2%;
+}
+
+.btn-next {
+  top: 45%;
+  right: 2%;
+}
+
 
 .wrapper {
   max-width: 80%;
@@ -144,7 +175,8 @@ h3 {
 
 .about-chip {
   margin-top: 3.5%;
-  margin-left: 60px;
+  margin-left: 20px;
+  margin-right: 15px;
   max-width: 450px;
 }
 
