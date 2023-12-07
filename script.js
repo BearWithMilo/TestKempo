@@ -1,39 +1,49 @@
-"use strict";
-// Select all slides
-const slides = document.querySelectorAll(".gallery-item");
+let current_position = 0;
+const incrementor = 350;
 
-slides.forEach((slide, indx) => {
-  slide.style.transform = `translateX(${indx * 10}px)`;
+let wrapper_width = 0;
+
+const test_block = document.querySelector("#gallery-items");
+const lefty = document.querySelector("#right");
+const righty = document.querySelector("#left");
+const wrapper = document.querySelector("#invisi-wrap");
+
+const init = () => {
+  test_block.style.left = current_position + "px";
+  wrapper_width = wrapper.offsetWidth;
+  console.log(wrapper_width);
+};
+init();
+
+window.addEventListener("resize", () => {
+  init();
 });
 
-const nextSlide = document.querySelector(".btn-next");
+righty.addEventListener("click", () => {
+  console.log("step right " + test_block.style.left);
+  current_position = current_position + incrementor;
+  lefty.style.visibility = " visible ";
 
-let curSlide = 0;
-let maxSlide = slides.length - 1;
+if(parseInt(test_block.style.left, 10)>=0){
+    // current_position = 0;
+    righty.style.visibility = "hidden";
+    
+  }
 
 
-nextSlide.addEventListener("click", function () {
-  if (curSlide === maxSlide) {
-    curSlide = 0;
-  } else {
-    curSlide++;
+  test_block.style.left = current_position + "px";
+});
+
+lefty.addEventListener("click", () => {
+  console.log("step left " + test_block.style.left);
+  current_position = current_position - incrementor;
+  righty.style.visibility = " visible ";
+
+
+       if(parseInt(test_block.style.left, 10) <= (wrapper_width - test_block.offsetWidth)){
+    // current_position = wrapper_width - test_block.offsetWidth;
+    lefty.style.visibility = "hidden";
   }
   
-    slides.forEach((slide, indx) => {
-    slide.style.transform = `translateX(${360 * (indx - curSlide)}px)`;
-  });
-});
-
-const prevSlide = document.querySelector(".btn-prev");
-
-prevSlide.addEventListener("click", function () {
-  if (curSlide === 0) {
-    curSlide = maxSlide;
-  } else {
-    curSlide--;
-  }
-
-  slides.forEach((slide, indx) => {
-    slide.style.transform = `translateX(${360 * (indx - curSlide)}px)`;
-  });
+  test_block.style.left = current_position + "px";
 });
